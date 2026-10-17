@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tk-echo-app-ingress
+  namespace: tk-eks-activity
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: "tk-echoapp.sctp-sandbox.com" # Route53 Record
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - "tk-echoapp.sctp-sandbox.com" # Route53 Record
+      secretName: tk-tls
+  rules:
+  - host: "tk-echoapp.sctp-sandbox.com" # Route53 Record
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: tk-echo-service
+            port:
+              number: 80
