@@ -218,3 +218,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# macOS metadata and AppleDouble files
+._*
+.DS_Store
+**/.DS_Store
+**/._*
